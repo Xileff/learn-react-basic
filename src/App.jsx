@@ -1,4 +1,3 @@
-import React from 'react';
 import { useState } from 'react';
 import './App.css';
 import SButton from './components/SButton';
@@ -30,8 +29,17 @@ function App() {
       isShown: true,
     },
   ]);
+  const [error, setError] = useState('');
 
   const handleSubmit = () => {
+    if (data.name === '') {
+      setError('Name is required.');
+      return;
+    } else if (data.age === 0) {
+      setError('Age is required.');
+      return;
+    }
+
     const _id = Math.max(...people.map((person) => person._id)) + 1;
     people.push({ ...data, _id, isShown: true });
     setPeople([...people]);
@@ -40,6 +48,7 @@ function App() {
 
   const handleChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
+    setError('');
   };
 
   return (
@@ -59,6 +68,7 @@ function App() {
       />
       <br />
       <SButton klik={handleSubmit}>Save</SButton>
+      <p style={{ color: 'red' }}>{error}</p>
       <br />
       <hr />
       <STable people={people} />

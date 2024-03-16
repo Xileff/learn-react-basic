@@ -1,3 +1,6 @@
+import React from 'react';
+import PropTypes from 'prop-types';
+
 export default function STable({ people }) {
   return (
     <table>
@@ -23,3 +26,7 @@ export default function STable({ people }) {
     </table>
   );
 }
+
+STable.propTypes = {
+  people: PropTypes.array.isRequired,
+};
